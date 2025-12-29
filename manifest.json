@@ -1,0 +1,9 @@
+{
+  "id": "auto-plural-alias",
+  "name": "Auto Plural Alias",
+  "version": "1.0.0",
+  "minAppVersion": "0.15.0",
+  "description": "Automatically adds singular/plural aliases to notes",
+  "author": "Peter Logan",
+  "isDesktopOnly": false
+}

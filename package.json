@@ -1,0 +1,23 @@
+{
+  "name": "obsidian-auto-plural-alias",
+  "version": "1.0.0",
+  "description": "",
+  "main": "index.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "keywords": [],
+  "author": "",
+  "license": "ISC",
+  "type": "commonjs",
+  "dependencies": {
+    "obsidian": "^1.11.0",
+    "pluralize": "^8.0.0"
+  },
+  "devDependencies": {
+    "@types/node": "^25.0.3",
+    "@types/pluralize": "^0.0.33",
+    "esbuild": "^0.27.2",
+    "typescript": "^5.9.3"
+  }
+}
