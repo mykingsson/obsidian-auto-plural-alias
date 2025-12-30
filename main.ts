@@ -39,23 +39,17 @@ export default class AutoPluralAliasPlugin extends Plugin {
         }
 
         await this.app.fileManager.processFrontMatter(file, (fm) => {
-            let aliases: string[] = [];
+            // Start with existing aliases or empty array
+            let aliases: string[] = Array.isArray(fm.aliases) ? [...fm.aliases] : [];
 
-            // Normalize existing aliases
+            // Remove old 'alias' property if present (legacy notes)
             if (typeof fm.alias === 'string') {
-                aliases = [fm.alias];
+                aliases.push(fm.alias);
                 delete fm.alias;
             }
 
-            if (Array.isArray(fm.aliases)) {
-                aliases = aliases.concat(fm.aliases);
-            }
-
-            // Replace filename if present
-            const index = aliases.findIndex(
-                a => a.toLowerCase() === fileName.toLowerCase()
-            );
-
+            // Replace filename if present, or add aliasForm if missing
+            const index = aliases.findIndex(a => a.toLowerCase() === fileName.toLowerCase());
             if (index !== -1) {
                 aliases[index] = aliasForm;
             } else if (!aliases.some(a => a.toLowerCase() === aliasForm.toLowerCase())) {
@@ -65,14 +59,8 @@ export default class AutoPluralAliasPlugin extends Plugin {
             // De-duplicate
             aliases = Array.from(new Set(aliases));
 
-            // Write back in the cleanest form
-            if (aliases.length === 1) {
-                fm.alias = aliases[0];
-                delete fm.aliases;
-            } else if (aliases.length > 1) {
-                fm.aliases = aliases;
-                delete fm.alias;
-            }
+            // Always write to 'aliases' array
+            fm.aliases = aliases;
         });
     }
 
